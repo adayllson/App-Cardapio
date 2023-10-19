@@ -12,5 +12,7 @@ public class FoodController {
     @GetMapping
     public void getAll(){
         
+        
+        
     }
 }
