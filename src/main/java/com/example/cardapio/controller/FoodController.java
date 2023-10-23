@@ -1,8 +1,11 @@
 package com.example.cardapio.controller;
 
 //import org.hibernate.mapping.List;
-import java.util.List;
+//import java.util.List;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +25,7 @@ public class FoodController {
     @Autowired
     private FoodRepository repository;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public void saveFood(@RequestBody FoodRequestDTO data){
         Food foodData = new Food(data);
@@ -29,11 +33,12 @@ public class FoodController {
         return;
     }
     
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     //Notação que retorna os itens do endpoint "food"
     @GetMapping
-    public List<FoodResponseDTO> getAll(){
+    public Stream<Object> getAll(){
         
-        List<FoodResponseDTO> foodList = (List<FoodResponseDTO>) repository.findAll().stream().map(FoodResponseDTO::new);
+        Stream<Object> foodList = repository.findAll().stream().map(FoodResponseDTO::new);
         return foodList;
         
     }
